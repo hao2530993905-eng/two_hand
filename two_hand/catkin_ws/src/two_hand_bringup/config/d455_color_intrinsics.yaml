@@ -1,0 +1,20 @@
+image_width: 1280
+image_height: 720
+camera_name: d455_color
+camera_matrix:
+  rows: 3
+  cols: 3
+  data: [640.24854, 0.0, 644.00010, 0.0, 639.67090, 366.79703, 0.0, 0.0, 1.0]
+distortion_model: plumb_bob
+distortion_coefficients:
+  rows: 1
+  cols: 5
+  data: [-0.05635059, 0.06756007, -0.00043557, 0.00046740, -0.02155723]
+rectification_matrix:
+  rows: 3
+  cols: 3
+  data: [1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0]
+projection_matrix:
+  rows: 3
+  cols: 4
+  data: [640.24854, 0.0, 644.00010, 0.0, 0.0, 639.67090, 366.79703, 0.0, 0.0, 0.0, 1.0, 0.0]

@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+<launch>
+  <arg name="d435_serial" default="135622076024"/>
+  <arg name="d455_serial" default="105322250617"/>
+  <arg name="width" default="1280"/>
+  <arg name="height" default="720"/>
+  <arg name="fps" default="30"/>
+
+  <group>
+    <remap from="/d435/color/camera_info" to="/d435/color/camera_info_factory"/>
+    <include file="$(find realsense2_camera)/launch/rs_camera.launch">
+      <arg name="serial_no" value="$(arg d435_serial)"/>
+      <arg name="camera" value="d435"/>
+      <arg name="enable_color" value="true"/>
+      <arg name="enable_depth" value="true"/>
+      <arg name="align_depth" value="true"/>
+      <arg name="enable_sync" value="true"/>
+      <arg name="enable_infra" value="false"/>
+      <arg name="enable_infra1" value="false"/>
+      <arg name="enable_infra2" value="false"/>
+      <arg name="color_width" value="$(arg width)"/>
+      <arg name="color_height" value="$(arg height)"/>
+      <arg name="color_fps" value="$(arg fps)"/>
+    </include>
+  </group>
+  <node pkg="two_hand_bringup" type="camera_info_override.py"
+        name="d435_camera_info_override" output="screen" required="true">
+    <rosparam command="load" file="$(find two_hand_bringup)/config/d435_color_intrinsics.yaml"/>
+    <param name="input_topic" value="/d435/color/camera_info_factory"/>
+    <param name="output_topic" value="/d435/color/camera_info"/>
+  </node>
+
+  <group>
+    <remap from="/camera/color/camera_info" to="/camera/color/camera_info_factory"/>
+    <include file="$(find realsense2_camera)/launch/rs_camera.launch">
+      <arg name="serial_no" value="$(arg d455_serial)"/>
+      <arg name="camera" value="camera"/>
+      <arg name="enable_color" value="true"/>
+      <arg name="enable_depth" value="true"/>
+      <arg name="align_depth" value="true"/>
+      <arg name="enable_sync" value="true"/>
+      <arg name="enable_infra" value="false"/>
+      <arg name="enable_infra1" value="false"/>
+      <arg name="enable_infra2" value="false"/>
+      <arg name="color_width" value="$(arg width)"/>
+      <arg name="color_height" value="$(arg height)"/>
+      <arg name="color_fps" value="$(arg fps)"/>
+    </include>
+  </group>
+  <node pkg="two_hand_bringup" type="camera_info_override.py"
+        name="d455_camera_info_override" output="screen" required="true">
+    <rosparam command="load" file="$(find two_hand_bringup)/config/d455_color_intrinsics.yaml"/>
+    <param name="input_topic" value="/camera/color/camera_info_factory"/>
+    <param name="output_topic" value="/camera/color/camera_info"/>
+  </node>
+</launch>

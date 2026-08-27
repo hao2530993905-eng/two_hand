@@ -1,0 +1,55 @@
+# Python caches and local environments
+**/__pycache__/
+**/.pytest_cache/
+*.py[cod]
+.venv/
+venv/
+
+# ROS/catkin generated files
+**/catkin_ws/build/
+**/catkin_ws/devel/
+**/catkin_ws/install/
+**/catkin_ws/logs/
+*.bag
+*.bag.active
+
+# Runtime output and debug captures
+**/output/
+**/runs/
+**/continuous_placement_debug/
+**/*_debug.png
+**/*_debug.jpg
+**/background.png
+**/detected_rectangles.jpg
+**/*.log
+
+# Generated calibration/training data
+**/calibration_results/
+**/calibration_targets/
+**/*_dataset/
+**/depth_background.npy
+**/yolo11n-obb.pt
+**/*_last.pt
+
+# Documentation/sample images inside vendored ROS sources. Robot mesh textures
+# remain tracked because RViz needs them at runtime.
+**/catkin_ws/src/**/*.png
+**/catkin_ws/src/**/*.jpg
+**/catkin_ws/src/**/*.jpeg
+!**/catkin_ws/src/**/meshes/**/*.png
+!**/catkin_ws/src/**/meshes/**/*.jpg
+!**/catkin_ws/src/**/meshes/**/*.jpeg
+
+# This project targets UR3/UR3e. Other Universal Robots mesh families are not
+# needed at runtime and make the initial clone unnecessarily large.
+WorkpiecePlacementUR3/catkin_ws/src/universal_robot/ur_description/meshes/*/
+!WorkpiecePlacementUR3/catkin_ws/src/universal_robot/ur_description/meshes/ur3/
+!WorkpiecePlacementUR3/catkin_ws/src/universal_robot/ur_description/meshes/ur3e/
+
+# Local editor and agent state
+**/.vscode/
+**/.agents/
+**/.codex/
+
+# Nested repository metadata is not part of this monorepo
+**/.git/

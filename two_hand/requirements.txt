@@ -1,0 +1,6 @@
+# Install into the same Python environment used to run the coordinator.
+ur-rtde==1.6.0
+ultralytics
+numpy
+opencv-python
+PyYAML

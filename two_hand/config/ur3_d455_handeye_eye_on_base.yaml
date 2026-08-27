@@ -1,0 +1,18 @@
+parameters:
+  eye_on_hand: false
+  freehand_robot_movement: true
+  move_group: manipulator
+  move_group_namespace: /
+  namespace: /ur3_d455_handeye_eye_on_base/
+  robot_base_frame: base_link
+  robot_effector_frame: tool0
+  tracking_base_frame: camera_link
+  tracking_marker_frame: aruco_marker_frame
+transformation:
+  qw: 0.49866528067062593
+  qx: -0.5045456967635582
+  qy: 0.5032463858095627
+  qz: 0.49346697245172744
+  x: -0.11695252414239256
+  y: 0.3932034983180741
+  z: 0.8350989589241489

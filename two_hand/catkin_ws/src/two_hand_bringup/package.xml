@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>two_hand_bringup</name>
+  <version>0.1.0</version>
+  <description>Self-contained D435 and D455 bringup for dual-arm handoff.</description>
+  <maintainer email="sjh@example.com">sjh</maintainer>
+  <license>BSD-3-Clause</license>
+  <buildtool_depend>catkin</buildtool_depend>
+  <exec_depend>rospy</exec_depend>
+  <exec_depend>sensor_msgs</exec_depend>
+  <exec_depend>realsense2_camera</exec_depend>
+</package>

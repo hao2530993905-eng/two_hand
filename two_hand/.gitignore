@@ -1,0 +1,38 @@
+# Python caches and local environments
+**/__pycache__/
+**/.pytest_cache/
+*.py[cod]
+.venv/
+venv/
+
+# ROS/catkin generated files
+catkin_ws/build/
+catkin_ws/devel/
+catkin_ws/install/
+catkin_ws/logs/
+*.bag
+*.bag.active
+
+# Runtime output, logs and debug captures
+output/
+runs/
+continuous_placement_debug/
+*_debug.png
+*_debug.jpg
+**/*_debug.png
+**/*_debug.jpg
+*.log
+**/*.log
+
+# Generated calibration and training data
+calibration_results/
+calibration_targets/
+**/*_dataset/
+**/depth_background.npy
+yolo11n-obb.pt
+**/*_last.pt
+
+# Local editor and agent state
+.vscode/
+.agents/
+.codex/
