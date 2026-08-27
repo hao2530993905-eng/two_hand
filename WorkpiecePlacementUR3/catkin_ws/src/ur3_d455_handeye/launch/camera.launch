@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<launch>
+  <arg name="serial_no" default="105322250617"/>
+  <arg name="camera_name" default="camera"/>
+  <arg name="enable_depth" default="true"/>
+  <arg name="align_depth" default="true"/>
+  <arg name="enable_sync" default="true"/>
+
+  <!-- Keep the factory CameraInfo on a private topic. The override below
+       republishes the configured DIL-main intrinsics on the standard topic. -->
+  <group>
+    <remap from="/$(arg camera_name)/color/camera_info"
+           to="/$(arg camera_name)/color/camera_info_factory"/>
+
+    <!-- Color plus aligned depth supports hand-eye and object detection. -->
+    <include file="$(find realsense2_camera)/launch/rs_camera.launch">
+      <arg name="serial_no" value="$(arg serial_no)"/>
+      <arg name="camera" value="$(arg camera_name)"/>
+      <arg name="enable_color" value="true"/>
+      <arg name="enable_depth" value="$(arg enable_depth)"/>
+      <arg name="align_depth" value="$(arg align_depth)"/>
+      <arg name="enable_sync" value="$(arg enable_sync)"/>
+      <arg name="enable_infra" value="false"/>
+      <arg name="enable_infra1" value="false"/>
+      <arg name="enable_infra2" value="false"/>
+      <arg name="color_width" value="1280"/>
+      <arg name="color_height" value="720"/>
+      <arg name="color_fps" value="30"/>
+    </include>
+  </group>
+
+  <node pkg="ur3_d455_handeye" type="camera_info_override.py"
+        name="d455_color_camera_info_override" output="screen" required="true">
+    <rosparam command="load"
+              file="$(find ur3_d455_handeye)/config/d455_color_intrinsics.yaml"/>
+    <param name="input_topic"
+           value="/$(arg camera_name)/color/camera_info_factory"/>
+    <param name="output_topic"
+           value="/$(arg camera_name)/color/camera_info"/>
+  </node>
+</launch>

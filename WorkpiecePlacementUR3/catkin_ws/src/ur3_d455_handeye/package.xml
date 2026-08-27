@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>ur3_d455_handeye</name>
+  <version>0.1.0</version>
+  <description>Eye-on-base calibration for the project UR3 and RealSense D455.</description>
+  <maintainer email="sjh@example.com">sjh</maintainer>
+  <license>MIT</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <exec_depend>aruco_ros</exec_depend>
+  <exec_depend>easy_handeye</exec_depend>
+  <exec_depend>image_proc</exec_depend>
+  <exec_depend>rqt_image_view</exec_depend>
+  <exec_depend>rviz</exec_depend>
+  <exec_depend>realsense2_camera</exec_depend>
+  <exec_depend>rospy</exec_depend>
+  <exec_depend>sensor_msgs</exec_depend>
+  <exec_depend>tf2_ros</exec_depend>
+  <exec_depend>ur_robot_driver</exec_depend>
+</package>

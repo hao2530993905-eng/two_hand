@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<launch>
+  <arg name="robot_ip" default="192.168.1.4"/>
+  <arg name="kinematics_config"
+       default="/home/sjh/WorkpiecePlacementUR3/complete_process/ur3_calibration.yaml"/>
+  <!-- VS Code on this host already owns local port 50004. -->
+  <arg name="script_command_port" default="50014"/>
+
+  <include file="$(find ur_robot_driver)/launch/ur3_bringup.launch">
+    <arg name="robot_ip" value="$(arg robot_ip)"/>
+    <arg name="kinematics_config" value="$(arg kinematics_config)"/>
+    <arg name="headless_mode" value="false"/>
+    <arg name="script_command_port" value="$(arg script_command_port)"/>
+  </include>
+</launch>

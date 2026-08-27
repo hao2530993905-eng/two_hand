@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<launch>
+  <!-- Run after the calibration has been saved by the GUI. -->
+  <include file="$(find easy_handeye)/launch/publish.launch">
+    <arg name="namespace_prefix" value="ur3_d455_handeye"/>
+    <arg name="eye_on_hand" value="false"/>
+    <arg name="robot_base_frame" value="base_link"/>
+    <arg name="tracking_base_frame" value="camera_link"/>
+  </include>
+</launch>

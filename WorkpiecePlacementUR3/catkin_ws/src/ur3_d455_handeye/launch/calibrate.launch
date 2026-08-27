@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+<launch>
+  <arg name="start_camera" default="true"/>
+  <arg name="start_robot" default="true"/>
+  <arg name="robot_ip" default="192.168.1.4"/>
+  <arg name="serial_no" default="105322250617"/>
+  <arg name="kinematics_config"
+       default="/home/sjh/WorkpiecePlacementUR3/complete_process/ur3_calibration.yaml"/>
+  <arg name="marker_id" default="582"/>
+  <arg name="marker_size" default="0.048"/>
+  <arg name="start_rviz" default="true"/>
+  <arg name="start_sampling_gui" default="true"/>
+  <arg name="start_image_view" default="true"/>
+
+  <include if="$(arg start_camera)" file="$(find ur3_d455_handeye)/launch/camera.launch">
+    <arg name="serial_no" value="$(arg serial_no)"/>
+  </include>
+
+  <include if="$(arg start_robot)" file="$(find ur3_d455_handeye)/launch/robot.launch">
+    <arg name="robot_ip" value="$(arg robot_ip)"/>
+    <arg name="kinematics_config" value="$(arg kinematics_config)"/>
+  </include>
+
+  <include file="$(find ur3_d455_handeye)/launch/aruco.launch">
+    <arg name="marker_id" value="$(arg marker_id)"/>
+    <arg name="marker_size" value="$(arg marker_size)"/>
+  </include>
+
+  <!-- Fixed camera + marker rigidly attached to the end effector = eye on base. -->
+  <include file="$(find easy_handeye)/launch/calibrate.launch">
+    <arg name="namespace_prefix" value="ur3_d455_handeye"/>
+    <arg name="eye_on_hand" value="false"/>
+    <arg name="robot_base_frame" value="base_link"/>
+    <arg name="robot_effector_frame" value="tool0"/>
+    <!-- Connect the root of the complete RealSense TF subtree. The marker is
+         still measured in camera_color_optical_frame by aruco_ros. -->
+    <arg name="tracking_base_frame" value="camera_link"/>
+    <arg name="tracking_marker_frame" value="aruco_marker_frame"/>
+    <!-- The operator moves the arm from the pendant; Easy Handeye never commands it. -->
+    <arg name="freehand_robot_movement" value="true"/>
+    <arg name="start_rviz" value="$(arg start_rviz)"/>
+    <!-- Start the GUI below with the system Python explicitly.  The upstream
+         executable uses /usr/bin/env python and otherwise picks Conda's
+         incompatible PyQt/SIP when this launch is run from (base). -->
+    <arg name="start_sampling_gui" value="false"/>
+    <arg name="rviz_config_file" value="$(find ur3_d455_handeye)/config/handeye.rviz"/>
+  </include>
+
+  <group ns="ur3_d455_handeye_eye_on_base">
+    <node if="$(arg start_sampling_gui)" name="handeye_sampling_gui"
+          pkg="rqt_easy_handeye" type="rqt_easy_handeye"
+          launch-prefix="/usr/bin/python3" output="screen"/>
+  </group>
+
+  <!-- Easy Handeye's sampler has no camera panel. Show the detected marker
+       overlay in a dedicated window while the operator changes poses. -->
+  <node if="$(arg start_image_view)" pkg="rqt_image_view" type="rqt_image_view"
+        name="handeye_image_view" args="/aruco_single/result"
+        launch-prefix="/usr/bin/python3" output="screen"/>
+</launch>
