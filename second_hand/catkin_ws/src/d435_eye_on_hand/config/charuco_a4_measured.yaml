@@ -1,0 +1,11 @@
+target: charuco_5x5_250_7x10_A4
+dictionary: 5x5_250
+squares_x: 7
+squares_y: 10
+nominal_check_line_m: 0.100
+measured_check_line_m: 0.09631
+print_scale: 0.9631
+nominal_square_size_m: 0.025
+measured_square_size_m: 0.0240775
+nominal_marker_size_m: 0.018
+measured_marker_size_m: 0.0173358

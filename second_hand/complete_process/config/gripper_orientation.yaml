@@ -1,0 +1,25 @@
+# Orientation-only calibration measured on 2026-08-26.
+# UR pose order: [x, y, z, rx, ry, rz]
+# Translation is recorded for traceability but is not part of this calibration.
+reference_pose_mm_rad:
+  - -109.581932
+  - 298.818935
+  - 176.858748
+  - -1.789396
+  - 2.572014
+  - -0.018453
+reference_wrist_3_deg: 110.0
+reference_condition: finger-to-finger line parallel to UR controller Base X
+finger_line_is_undirected: true
+
+orientation:
+  base_from_tcp_rotvec_rad: [-1.789396, 2.572014, -0.018453]
+  finger_line_base_reference: [1.0, 0.0, 0.0]
+  finger_line_in_tcp: [-0.347687160, -0.937512857, 0.013538140]
+  projected_mounting_yaw_about_tcp_z_deg: -110.347864
+  equivalent_projected_yaw_deg: 69.652136
+
+# For a desired undirected finger-line angle theta in the UR Base XY plane:
+#   base_R_tcp(theta) = Rz(theta) * base_R_tcp(reference)
+# Also evaluate theta + 180 deg and choose the solution closer to the current
+# TCP orientation. Do not use wrist_3_deg alone as the global gripper angle.

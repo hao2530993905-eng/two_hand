@@ -1,0 +1,21 @@
+repositories:
+  catkin_ws/src/Universal_Robots_ROS_Driver:
+    type: git
+    url: https://github.com/UniversalRobots/Universal_Robots_ROS_Driver.git
+    version: 64f3f1a8aa4f84d550fbccdc2415644f64bd1119
+  catkin_ws/src/aruco_ros:
+    type: git
+    url: https://github.com/pal-robotics/aruco_ros.git
+    version: 3680aea43f8c54382092d6e886bb1a30ca09fad5
+  catkin_ws/src/easy_handeye:
+    type: git
+    url: https://github.com/IFL-CAMP/easy_handeye.git
+    version: 5aa453b91e26bc7f0fc9d7461501824f967f1e29
+  catkin_ws/src/universal_robot:
+    type: git
+    url: https://github.com/ros-industrial/universal_robot.git
+    version: 39ad110d8f2e8f66856a201cca88aa7a7025e3eb
+  catkin_ws/src/ur_msgs:
+    type: git
+    url: https://github.com/ros-industrial/ur_msgs.git
+    version: 6c6dc66c63bd551e3985281739add762bfaa3aa9

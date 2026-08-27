@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<launch>
+  <arg name="robot_ip" default="192.168.1.5"/>
+  <arg name="kinematics_config"
+       default="$(find d435_eye_on_hand)/config/ur3_2020330223_calibration.yaml"/>
+  <!-- Avoid collisions with ephemeral local ports and the D455 stack. -->
+  <arg name="script_sender_port" default="50012"/>
+  <arg name="script_command_port" default="50014"/>
+
+  <!-- UR3 CB3, serial 2020330223. This publishes base_link -> tool0.
+       It does not command motion; use the pendant for freehand sampling. -->
+  <include file="$(find ur_robot_driver)/launch/ur3_bringup.launch">
+    <arg name="robot_ip" value="$(arg robot_ip)"/>
+    <arg name="kinematics_config" value="$(arg kinematics_config)"/>
+    <arg name="headless_mode" value="false"/>
+    <arg name="script_sender_port" value="$(arg script_sender_port)"/>
+    <arg name="script_command_port" value="$(arg script_command_port)"/>
+  </include>
+</launch>

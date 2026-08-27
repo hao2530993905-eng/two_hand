@@ -1,0 +1,3 @@
+# Python communication library used by complete_process/utils/base/ur_base.py.
+# This matches the version used by the reference WorkpiecePlacementUR3 project.
+ur-rtde==1.6.0

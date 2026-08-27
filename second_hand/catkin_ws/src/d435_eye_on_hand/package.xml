@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>d435_eye_on_hand</name>
+  <version>0.1.0</version>
+  <description>Measured D435 intrinsics and eye-on-hand calibration workflow.</description>
+  <maintainer email="sjh@example.com">sjh</maintainer>
+  <license>MIT</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <exec_depend>aruco_ros</exec_depend>
+  <exec_depend>camera_calibration</exec_depend>
+  <exec_depend>cv_bridge</exec_depend>
+  <exec_depend>easy_handeye</exec_depend>
+  <exec_depend>easy_handeye_msgs</exec_depend>
+  <exec_depend>image_proc</exec_depend>
+  <exec_depend>message_filters</exec_depend>
+  <exec_depend>python3-numpy</exec_depend>
+  <exec_depend>python3-opencv</exec_depend>
+  <exec_depend>realsense2_camera</exec_depend>
+  <exec_depend>rospkg</exec_depend>
+  <exec_depend>rospy</exec_depend>
+  <exec_depend>rqt_image_view</exec_depend>
+  <exec_depend>sensor_msgs</exec_depend>
+  <exec_depend>std_msgs</exec_depend>
+  <exec_depend>std_srvs</exec_depend>
+  <exec_depend>tf</exec_depend>
+  <exec_depend>tf2_ros</exec_depend>
+  <exec_depend>ur_robot_driver</exec_depend>
+</package>

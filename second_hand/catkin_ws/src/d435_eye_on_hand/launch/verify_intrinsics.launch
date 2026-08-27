@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<launch>
+  <arg name="start_raw_view" default="false"/>
+  <arg name="start_rectified_view" default="true"/>
+
+  <include file="$(find d435_eye_on_hand)/launch/d435_calibrated.launch"/>
+  <node pkg="image_proc" type="image_proc" name="image_proc"
+        ns="/d435/color" output="screen"/>
+  <node if="$(arg start_raw_view)" pkg="rqt_image_view" type="rqt_image_view"
+        name="raw_intrinsics_view" args="/d435/color/image_raw"
+        launch-prefix="/usr/bin/python3" output="screen"/>
+  <node if="$(arg start_rectified_view)" pkg="rqt_image_view" type="rqt_image_view"
+        name="rectified_intrinsics_view" args="/d435/color/image_rect_color"
+        launch-prefix="/usr/bin/python3" output="screen"/>
+</launch>

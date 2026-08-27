@@ -1,0 +1,64 @@
+<?xml version="1.0"?>
+<launch>
+  <arg name="start_camera" default="true"/>
+  <arg name="start_robot" default="true"/>
+  <arg name="robot_ip" default="192.168.1.5"/>
+  <arg name="serial_no" default="135622076024"/>
+  <arg name="marker_id" default="582"/>
+  <arg name="marker_size" default="0.048"/>
+  <arg name="robot_base_frame" default="base_link"/>
+  <arg name="robot_effector_frame" default="tool0"/>
+  <arg name="tracking_base_frame" default="d435_link"/>
+  <arg name="tracking_marker_frame" default="d435_aruco_marker_frame"/>
+  <arg name="start_rviz" default="true"/>
+  <arg name="start_sampling_gui" default="true"/>
+  <arg name="start_image_view" default="true"/>
+  <arg name="start_park_monitor" default="true"/>
+  <arg name="park_monitor_save_latest" default="false"/>
+  <arg name="park_monitor_min_samples" default="3"/>
+
+  <!-- d435_calibrated.launch refuses to start before measured intrinsics exist. -->
+  <include if="$(arg start_camera)" file="$(find d435_eye_on_hand)/launch/d435_calibrated.launch">
+    <arg name="serial_no" value="$(arg serial_no)"/>
+  </include>
+  <include if="$(arg start_robot)" file="$(find d435_eye_on_hand)/launch/robot.launch">
+    <arg name="robot_ip" value="$(arg robot_ip)"/>
+  </include>
+  <include file="$(find d435_eye_on_hand)/launch/aruco_582.launch">
+    <arg name="marker_id" value="$(arg marker_id)"/>
+    <arg name="marker_size" value="$(arg marker_size)"/>
+  </include>
+
+  <!-- Camera moves with tool0; marker 582 is fixed in the environment. -->
+  <include file="$(find easy_handeye)/launch/calibrate.launch">
+    <arg name="namespace_prefix" value="d435_ur3"/>
+    <arg name="eye_on_hand" value="true"/>
+    <arg name="robot_base_frame" value="$(arg robot_base_frame)"/>
+    <arg name="robot_effector_frame" value="$(arg robot_effector_frame)"/>
+    <arg name="tracking_base_frame" value="$(arg tracking_base_frame)"/>
+    <arg name="tracking_marker_frame" value="$(arg tracking_marker_frame)"/>
+    <arg name="freehand_robot_movement" value="true"/>
+    <arg name="start_rviz" value="$(arg start_rviz)"/>
+    <arg name="start_sampling_gui" value="false"/>
+  </include>
+
+  <group ns="d435_ur3_eye_on_hand">
+    <node if="$(arg start_sampling_gui)" name="handeye_sampling_gui"
+          pkg="rqt_easy_handeye" type="rqt_easy_handeye"
+          launch-prefix="/usr/bin/python3" output="screen"/>
+  </group>
+  <node if="$(arg start_image_view)" pkg="rqt_image_view" type="rqt_image_view"
+        name="handeye_image_view" args="/d435_aruco_582/result"
+        launch-prefix="/usr/bin/python3" output="screen"/>
+  <!-- Forces OpenCV/Park and prints/saves an error report whenever sample count changes. -->
+  <group if="$(arg start_park_monitor)">
+    <node unless="$(arg park_monitor_save_latest)" pkg="d435_eye_on_hand"
+          type="evaluate_handeye_error.py" name="d435_handeye_park_monitor"
+          args="--watch --min-samples $(arg park_monitor_min_samples)"
+          output="screen"/>
+    <node if="$(arg park_monitor_save_latest)" pkg="d435_eye_on_hand"
+          type="evaluate_handeye_error.py" name="d435_handeye_park_monitor"
+          args="--watch --min-samples $(arg park_monitor_min_samples) --save-latest"
+          output="screen"/>
+  </group>
+</launch>

@@ -1,0 +1,9 @@
+catkin_ws/build/
+catkin_ws/devel/
+catkin_ws/logs/
+calibration_results/*.tar.gz
+**/__pycache__/
+*.pyc
+complete_process/utils/object_detective/depth_background.npy
+complete_process/utils/object_detective/*_dataset/
+complete_process/utils/object_detective/runs/

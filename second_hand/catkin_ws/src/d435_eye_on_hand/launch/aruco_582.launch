@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<launch>
+  <arg name="marker_id" default="582"/>
+  <arg name="marker_size" default="0.048"/>
+  <arg name="camera_frame" default="d435_color_optical_frame"/>
+  <arg name="marker_frame" default="d435_aruco_marker_frame"/>
+  <arg name="image_topic" default="/d435/color/image_rect_color"/>
+  <arg name="camera_info_topic" default="/d435/color/camera_info"/>
+
+  <!-- Rectify using the measured five-coefficient D435 model before pose
+       estimation; this also avoids aruco_ros 3.1.4's distortion limitation. -->
+  <node pkg="image_proc" type="image_proc" name="image_proc"
+        ns="/d435/color" output="screen"/>
+
+  <node pkg="aruco_ros" type="single" name="d435_aruco_582" output="screen">
+    <remap from="/image" to="$(arg image_topic)"/>
+    <remap from="/camera_info" to="$(arg camera_info_topic)"/>
+    <param name="image_is_rectified" value="true"/>
+    <param name="marker_size" value="$(arg marker_size)"/>
+    <param name="marker_id" value="$(arg marker_id)"/>
+    <param name="dictionary" value="ARUCO"/>
+    <param name="detect_without_subscribers" value="true"/>
+    <param name="camera_frame" value="$(arg camera_frame)"/>
+    <param name="reference_frame" value="$(arg camera_frame)"/>
+    <param name="marker_frame" value="$(arg marker_frame)"/>
+    <param name="min_marker_size" value="0.01"/>
+  </node>
+</launch>

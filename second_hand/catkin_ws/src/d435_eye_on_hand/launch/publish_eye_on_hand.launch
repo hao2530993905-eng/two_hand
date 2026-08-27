@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<launch>
+  <!-- Publishes the saved tool0 <- d435_link result. -->
+  <include file="$(find easy_handeye)/launch/publish.launch">
+    <arg name="namespace_prefix" value="d435_ur3"/>
+    <arg name="eye_on_hand" value="true"/>
+    <arg name="robot_effector_frame" value="tool0"/>
+    <arg name="tracking_base_frame" value="d435_link"/>
+  </include>
+</launch>
